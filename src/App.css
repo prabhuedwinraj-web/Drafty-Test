@@ -202,20 +202,15 @@
   overflow: hidden;
 }
 
-.all-answers-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}
-.all-answers-head h6 {
-  margin: 0;
-}
-.faq-list--all {
-  border-top: 2px solid var(--color-divider);
-}
 .faq-row--all {
   border-bottom: 1px solid var(--color-divider);
+}
+.faq-group-heading {
+  margin: 20px 0 2px;
+  color: var(--color-neutral-600);
+}
+.faq-group-heading:first-child {
+  margin-top: 8px;
 }
 
 .faq-row-head {

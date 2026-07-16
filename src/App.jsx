@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { CATEGORIES, FAQS, VIDEO_SRC_LANDSCAPE, VIDEO_SRC_PORTRAIT } from './data/faqs';
 import './App.css';
 
@@ -88,7 +88,6 @@ function FaqRow({ faq, open, onToggle, variant }) {
     <div className={`faq-row faq-row--${variant}`}>
       <button className="faq-row-head" onClick={onToggle} aria-expanded={open}>
         <span className="faq-row-label">
-          {variant === 'all' && <span className="tag tag-accent">{faq.cat}</span>}
           <span className="faq-row-q">{faq.q}</span>
           {faq.video && (
             <span className="tag tag-outline faq-video-tag"><PlayIcon />video</span>
@@ -124,7 +123,6 @@ export default function App() {
   const popular = useMemo(() => FAQS.filter(f => f.pop), []);
   const popShown = !q.trim() && cat === 'All';
   const empty = list.length === 0;
-  const count = `${list.length} ${list.length === 1 ? 'answer' : 'answers'}`;
 
   const clear = () => { setQ(''); setCat('All'); };
 
@@ -208,19 +206,19 @@ export default function App() {
         )}
 
         <section className="all-answers">
-          <div className="all-answers-head">
-            <h6>All answers</h6>
-            <span className="text-muted count">{count}</span>
-          </div>
           <div className="faq-list faq-list--all">
-            {list.map(f => (
-              <FaqRow
-                key={f.id}
-                faq={f}
-                variant="all"
-                open={!!openAll[f.id]}
-                onToggle={() => setOpenAll(p => ({ ...p, [f.id]: !p[f.id] }))}
-              />
+            {list.map((f, i) => (
+              <Fragment key={f.id}>
+                {(i === 0 || list[i - 1].cat !== f.cat) && (
+                  <h6 className="faq-group-heading">{f.cat}</h6>
+                )}
+                <FaqRow
+                  faq={f}
+                  variant="all"
+                  open={!!openAll[f.id]}
+                  onToggle={() => setOpenAll(p => ({ ...p, [f.id]: !p[f.id] }))}
+                />
+              </Fragment>
             ))}
           </div>
           {empty && (
