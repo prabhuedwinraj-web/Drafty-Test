@@ -205,8 +205,11 @@
 .faq-row--all {
   border-bottom: 1px solid var(--color-divider);
 }
+.faq-row--all:has(+ .faq-group-heading) {
+  border-bottom: none;
+}
 .faq-group-heading {
-  margin: 20px 0 2px;
+  margin: 60px 0 2px;
   color: var(--color-neutral-600);
 }
 .faq-group-heading:first-child {
